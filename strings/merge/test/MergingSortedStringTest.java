@@ -14,7 +14,7 @@ public class MergingSortedStringTest {
   }
 
   @Test
-  void testMergingSortedStrings() {
+  void testMergingSortedStringsCase1() {
     String[] input1 = new String[]{"3", "7", "9"};
     System.out.println("input1 :" + Arrays.toString(input1));
     String[] input2 = new String[]{"1", "6", "8", "10"};
@@ -33,6 +33,19 @@ public class MergingSortedStringTest {
     String[] input2 = new String[]{"1", "3", "8", "10"};
     System.out.println("input2 :" + Arrays.toString(input2));
     String expected = Arrays.toString(new String[]{"1", "3", "3", "8", "10", "11"});
+    System.out.println("expected :" + expected);
+    String result = Arrays.toString(mergingSortedString.mergeSortedStrings(input1, input2));
+    System.out.println("result :" + result);
+    Assertions.assertEquals(expected, result);
+  }
+
+  @Test
+  void testMergingSortedStringsCase3() {
+    String[] input1 = new String[]{};
+    System.out.println("input1 :" + Arrays.toString(input1));
+    String[] input2 = new String[]{"1", "6", "8", "10"};
+    System.out.println("input2 :" + Arrays.toString(input2));
+    String expected = Arrays.toString(new String[]{"1", "6", "8", "10"});
     System.out.println("expected :" + expected);
     String result = Arrays.toString(mergingSortedString.mergeSortedStrings(input1, input2));
     System.out.println("result :" + result);
