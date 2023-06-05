@@ -1,2 +1,2 @@
-# algorithm-examples
-Demo project for some algorithm solutions
+# Algorithm Examples
+Demo project for some algorithm solutions, compiled and ran using JDK 20
