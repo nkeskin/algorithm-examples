@@ -1,5 +1,6 @@
 public class HighestValuePalindrome {
 
+  //TODO not working on all cases, fix the implementation
   public String findPalindrome(String input, int maxChanges) {
 
     char[] inputChars = input.toCharArray();
