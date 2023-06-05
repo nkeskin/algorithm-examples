@@ -13,8 +13,11 @@ public class ReversingTest {
 
   @Test
   void testReverse() {
-    String input = "hello";
-    Assertions.assertEquals("olleh", reversing.reverse(input));
+    String input = "demo!";
+    System.out.println(input);
+    String reversedInput = reversing.reverse(input);
+    System.out.println(reversedInput);
+    Assertions.assertEquals("!omed", reversedInput);
   }
 
   @Test
@@ -25,6 +28,11 @@ public class ReversingTest {
   @Test
   void testReverseWhenInputIsEmpty() {
     Assertions.assertEquals("", reversing.reverse(""));
+  }
+
+  @Test
+  void testReverseWhenInputHasOneCharacter() {
+    Assertions.assertEquals("w", reversing.reverse("w"));
   }
 
 }

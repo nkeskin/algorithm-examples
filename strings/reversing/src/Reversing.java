@@ -5,6 +5,10 @@ public class Reversing {
     if (input == null || input.equals(""))
       return "";
 
+    if(input.length() == 1) {
+      return input;
+    }
+
     char[] reverseChars = new char[input.length()];
 
     for (int i = 0; i < input.length(); i++) {
