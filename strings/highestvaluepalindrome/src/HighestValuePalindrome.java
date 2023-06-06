@@ -38,29 +38,23 @@ public class HighestValuePalindrome {
     int modulo = maxChanges % 2;
     int i = 0;
     int size = Math.abs(maxChanges - breakingIndexes.size());
-    while (maxChanges > size && i < inputChars.length) {
+    while (maxChanges > size / 2 && i < inputChars.length) {
       maxChanges = convertToHighestPalindrome(inputChars, i, maxChanges);
-      if(i < breakingIndexes.size() && i == breakingIndexes.get(i)) {
-        breakingIndexes.set(i, -1);
-      }
       i++;
     }
 
-    int index = 0;
+    breakingIndexes = getPalindromeBreakingIndexes(inputChars);
 
+    int index = 0;
     while (maxChanges > 0 && index < breakingIndexes.size()) {
-      if (breakingIndexes.get(index) > 0) {
-        maxChanges = convertToPalindrome(inputChars, breakingIndexes.get(index), maxChanges);
-      }
+      maxChanges = convertToPalindrome(inputChars, breakingIndexes.get(index), maxChanges);
       index++;
     }
 
     int resultIndex = 0;
-    if(maxChanges > 0){
-      while (maxChanges > 1 && resultIndex < inputChars.length) {
-        maxChanges = convertToHighestPalindrome(inputChars, resultIndex, maxChanges);
-        resultIndex++;
-      }
+    while (maxChanges > 1 && resultIndex < inputChars.length) {
+      maxChanges = convertToHighestPalindrome(inputChars, resultIndex, maxChanges);
+      resultIndex++;
     }
 
     if (input.length() % 2 == 1 && modulo == 1 && maxChanges == 1) {
@@ -95,10 +89,12 @@ public class HighestValuePalindrome {
 
     if (inputChars[breakingIndex] > inputChars[inputChars.length - breakingIndex - 1]) {
       inputChars[inputChars.length - breakingIndex - 1] = inputChars[breakingIndex];
-    } else {
+      maxChanges--;
+    } else if (inputChars[breakingIndex] < inputChars[inputChars.length - breakingIndex - 1]) {
       inputChars[breakingIndex] = inputChars[inputChars.length - breakingIndex - 1];
+      maxChanges--;
     }
-    maxChanges--;
+
     return maxChanges;
   }
 
