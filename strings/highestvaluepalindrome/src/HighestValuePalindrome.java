@@ -3,6 +3,8 @@ import java.util.List;
 
 public class HighestValuePalindrome {
 
+  // Find highest value palindrome of a given string and return it
+  // If not palindrome is found then return -1
   //TODO not working on all cases, fix the implementation
   public String findPalindrome(String input, int maxChanges) {
 
