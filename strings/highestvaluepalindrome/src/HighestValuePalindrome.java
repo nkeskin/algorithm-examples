@@ -9,6 +9,10 @@ public class HighestValuePalindrome {
     char[] inputChars = input.toCharArray();
     List<Integer> breakingIndexes = getPalindromeBreakingIndexes(inputChars);
 
+    if(maxChanges > 0 && input.length() == 1) {
+      return "9";
+    }
+
     if(maxChanges == 0) {
       if(breakingIndexes.size() > 0) {
         return "-1";
@@ -33,7 +37,7 @@ public class HighestValuePalindrome {
 
     int modulo = maxChanges % 2;
     int i = 0;
-    while (maxChanges > i) {
+    while (maxChanges > i && i < inputChars.length) {
       maxChanges = convertToHighestPalindrome(inputChars, i, maxChanges);
       if(i < breakingIndexes.size() && i == breakingIndexes.get(i)) {
         breakingIndexes.remove(i);
@@ -52,7 +56,15 @@ public class HighestValuePalindrome {
       inputChars[input.length()/2] = '9';
     }
 
-    return new String(inputChars);
+    String result = new String(inputChars);
+
+    List<Integer> resultIndexes = getPalindromeBreakingIndexes(result.toCharArray());
+
+    if(resultIndexes.size() > 0) {
+      return "-1";
+    }
+
+    return result;
 
   }
 
@@ -77,9 +89,16 @@ public class HighestValuePalindrome {
   }
 
   private int convertToHighestPalindrome(char[] inputChars, int index, int maxChanges) {
-    inputChars[inputChars.length - index - 1] = '9';
-    inputChars[index] = '9';
-    maxChanges -= 2;
+    if(inputChars[inputChars.length - index - 1] != '9') {
+      inputChars[inputChars.length - index - 1] = '9';
+      maxChanges--;
+    }
+
+    if(inputChars[index] != '9') {
+      inputChars[index] = '9';
+      maxChanges--;
+    }
+
     return maxChanges;
   }
 
