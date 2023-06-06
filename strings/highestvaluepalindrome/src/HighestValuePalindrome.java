@@ -37,8 +37,8 @@ public class HighestValuePalindrome {
 
     int modulo = maxChanges % 2;
     int i = 0;
-    int size = Math.abs(maxChanges - breakingIndexes.size());
-    while (maxChanges > size / 2 && i < inputChars.length) {
+    int size = Math.abs(maxChanges - breakingIndexes.size())/2;
+    while (maxChanges > size && i < inputChars.length) {
       maxChanges = convertToHighestPalindrome(inputChars, i, maxChanges);
       i++;
     }
