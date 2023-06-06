@@ -6,61 +6,72 @@ public class HighestValuePalindrome {
   //TODO not working on all cases, fix the implementation
   public String findPalindrome(String input, int maxChanges) {
 
-    char[] inputChars = input.toCharArray();
-    List<Integer> breakingIndexes = getPalindromeBreakingIndexes(inputChars);
-
-    if(maxChanges > 0 && input.length() == 1) {
+    if (maxChanges > 0 && input.length() == 1) {
       return "9";
     }
 
-    if(maxChanges == 0) {
-      if(breakingIndexes.size() > 0) {
+    char[] inputChars = input.toCharArray();
+    List<Integer> breakingIndexes = getPalindromeBreakingIndexes(inputChars);
+
+    if (maxChanges == 0) {
+      if (breakingIndexes.size() > 0) {
         return "-1";
       } else {
         return input;
       }
     }
 
-    if(breakingIndexes.size() > 1 && maxChanges == 1) {
+    if (breakingIndexes.size() > 1 && maxChanges == 1) {
       return "-1";
     }
 
-    if(breakingIndexes.size() == 1 && maxChanges == 1) {
+    if (breakingIndexes.size() == 1 && maxChanges == 1) {
       convertToPalindrome(inputChars, breakingIndexes.get(0), maxChanges);
       return new String(inputChars);
     }
 
-    if(breakingIndexes.size() == 0 && maxChanges == 1 && input.length() % 2 == 1) {
+    if (breakingIndexes.size() == 0 && maxChanges == 1 && input.length() % 2 == 1) {
       convertToHighestPalindrome(inputChars, input.length() / 2, maxChanges);
       return new String(inputChars);
     }
 
     int modulo = maxChanges % 2;
     int i = 0;
-    while (maxChanges > i && i < inputChars.length) {
+    int size = Math.abs(maxChanges - breakingIndexes.size());
+    while (maxChanges > size && i < inputChars.length) {
       maxChanges = convertToHighestPalindrome(inputChars, i, maxChanges);
       if(i < breakingIndexes.size() && i == breakingIndexes.get(i)) {
-        breakingIndexes.remove(i);
+        breakingIndexes.set(i, -1);
       }
       i++;
     }
 
-    for(int index : breakingIndexes) {
-      if(maxChanges > 0) {
-        maxChanges = convertToPalindrome(inputChars, index, maxChanges);
-      }
+    int index = 0;
 
+    while (maxChanges > 0 && index < breakingIndexes.size()) {
+      if (breakingIndexes.get(index) > 0) {
+        maxChanges = convertToPalindrome(inputChars, breakingIndexes.get(index), maxChanges);
+      }
+      index++;
     }
 
-    if(input.length() % 2 == 1 && modulo == 1 && maxChanges == 1) {
-      inputChars[input.length()/2] = '9';
+    int resultIndex = 0;
+    if(maxChanges > 0){
+      while (maxChanges > 1 && resultIndex < inputChars.length) {
+        maxChanges = convertToHighestPalindrome(inputChars, resultIndex, maxChanges);
+        resultIndex++;
+      }
+    }
+
+    if (input.length() % 2 == 1 && modulo == 1 && maxChanges == 1) {
+      inputChars[input.length() / 2] = '9';
     }
 
     String result = new String(inputChars);
 
     List<Integer> resultIndexes = getPalindromeBreakingIndexes(result.toCharArray());
 
-    if(resultIndexes.size() > 0) {
+    if (resultIndexes.size() > 0) {
       return "-1";
     }
 
@@ -69,11 +80,14 @@ public class HighestValuePalindrome {
   }
 
   private int convertToPalindrome(char[] inputChars, int breakingIndex, int maxChanges) {
-    if(inputChars[breakingIndex] == '9') {
+    if (inputChars[breakingIndex] == '9' && inputChars[inputChars.length - breakingIndex - 1] == '9')
+      return maxChanges;
+
+    if (inputChars[breakingIndex] == '9') {
       inputChars[inputChars.length - breakingIndex - 1] = '9';
       maxChanges--;
       return maxChanges;
-    } else if(inputChars[inputChars.length - breakingIndex - 1] == '9'){
+    } else if (inputChars[inputChars.length - breakingIndex - 1] == '9') {
       inputChars[breakingIndex] = '9';
       maxChanges--;
       return maxChanges;
@@ -89,12 +103,12 @@ public class HighestValuePalindrome {
   }
 
   private int convertToHighestPalindrome(char[] inputChars, int index, int maxChanges) {
-    if(inputChars[inputChars.length - index - 1] != '9') {
+    if (inputChars[inputChars.length - index - 1] != '9') {
       inputChars[inputChars.length - index - 1] = '9';
       maxChanges--;
     }
 
-    if(inputChars[index] != '9') {
+    if (inputChars[index] != '9') {
       inputChars[index] = '9';
       maxChanges--;
     }
