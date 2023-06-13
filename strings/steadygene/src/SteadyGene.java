@@ -26,67 +26,32 @@ public class SteadyGene {
 
     boolean found = false;
     int frequency = -1;
-    int nextLength = 1;
-    int shuffleCount = 0;
+    int nextLength = 0;
     while (!found && steady.length() < gene.length()) {
-      boolean shuffle = true;
-      for (int j = 0; j < steady.length(); j++) {
-        for (int i = 0; i < gene.length() - steady.length(); i++) {
-          String tempGene = gene.replaceFirst(gene.substring(i, steady.length() + i), steady);
-          found = checkSteadyGene(tempGene);
-          if (found) {
-            break;
-          }
+      for (int i = 0; i < gene.length() - steady.length(); i++) {
+        String temp1 = gene.substring(steady.length());
+//        String tempGene = gene.replace(gene.substring(i, steady.length() + i), steady);
+//        found = checkSteadyGene(tempGene);
+        if (found) {
+          break;
         }
-        steady = rotateSteady(steady);
       }
 
       if (frequency == 4) {
         frequency = 0;
         nextLength++;
         origSteady = steady;
-        shuffle = false;
-      } else if (shuffleCount > steady.length()) {
+      } else {
         frequency++;
-        shuffle = false;
       }
 
-      if (shuffle) {
-        steady = shuffleSteadyChars(steady);
-        shuffleCount++;
-      } else {
-        steady = compileNextSteady(origSteady, frequency, nextLength);
-        shuffleCount = 0;
-      }
+      steady = compileNextSteady(origSteady, frequency, nextLength);
 
     }
 
 
     return steady.length();
 
-  }
-
-  private String rotateSteady(String steady) {
-    char firstChar = steady.charAt(0);
-    char[] steadyChars = steady.toCharArray();
-    for (int i = 0; i < steady.length() - 1; i++) {
-      steadyChars[i] = steadyChars[i + 1];
-    }
-    steadyChars[steady.length() - 1] = firstChar;
-    return new String(steadyChars);
-  }
-
-  private String shuffleSteadyChars(String steady) {
-    List<Character> characterList = new ArrayList<>();
-    for (char c : steady.toCharArray()) {
-      characterList.add(c);
-    }
-    Collections.shuffle(characterList, new Random(steady.length()));
-    StringBuilder sb = new StringBuilder();
-    for (char c : characterList) {
-      sb.append(c);
-    }
-    return sb.toString();
   }
 
 
