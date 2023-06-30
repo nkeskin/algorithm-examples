@@ -31,5 +31,4 @@ public class SearchOnSortedTest {
     Assertions.assertEquals(0, searchOnSorted.search(new int[]{1, 3, 5}, 3));
   }
 
-
 }
