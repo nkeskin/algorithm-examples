@@ -15,7 +15,7 @@
   <name>Algorithm Examples</name>
   <description>Demo project for some algorithm solutions</description>
   <properties>
-    <java.version>20</java.version>
+    <java.version>17</java.version>
     <junit-jupiter-engine.version>5.9.3</junit-jupiter-engine.version>
   </properties>
 
