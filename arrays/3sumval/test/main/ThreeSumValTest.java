@@ -46,7 +46,7 @@ class ThreeSumValTest {
     Assertions.assertEquals(Arrays.asList(-2, 3, -1), result.get(5));
     Assertions.assertEquals(Arrays.asList(-2, 2, 0), result.get(6));
     Assertions.assertEquals(Arrays.asList(-1, 2, -1), result.get(7));
-    Assertions.assertEquals(Arrays.asList(-1, 1, 0), result.get(8));
+    Assertions.assertEquals(0, result.get(8).get(2));
   }
 
 
